@@ -1,9 +1,6 @@
 import ActivityFeed from '../models/ActivityFeed.model.js';
 
-/**
- * Get Activity Logs for the authenticated user.
- * Supports query parameter ?limit=X (default 10, max 50).
- */
+
 export const getActivityLogs = async (req, res, next) => {
   try {
     let limit = parseInt(req.query.limit, 10);

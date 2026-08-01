@@ -3,11 +3,16 @@ import nodemailer from 'nodemailer';
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT),
-  secure: false, // use STARTTLS
+  secure: false,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
+  pool: true,             // reuse connections instead of a fresh handshake per email
+  maxConnections: 3,
+  connectionTimeout: 10_000,  // fail fast instead of hanging indefinitely
+  greetingTimeout: 10_000,
+  socketTimeout: 15_000,
 });
 
 export const verifyConnection = async () => {
